@@ -2,7 +2,6 @@ const express = require('express')
 const https = require('https')
 const path = require('path')
 var fs = require('fs')
-const ping = require ("net-ping");
 const app = express()
 const port = 3000
 const usproxies = __dirname + '/usproxies.txt'
@@ -85,14 +84,7 @@ var timer = setInterval(() => {
                             info['timezone'] = JSON.parse(p).timezone
                             info['status'] = true
                             info['ts'] = d.toLocaleString()
-                            //check for status with ping
-                            var session = ping.createSession();
-                            session.pingHost(ip, function (error, target) {
-                                if (error)
-                                info['status'] = false
-                                else
-                                info['status'] = true
-                            });
+                            
 
                             fin_addrs[count] = info
                             fs.writeFile('usproxies.json', JSON.stringify(fin_addrs, "/t", 4), () => { });
