@@ -1,18 +1,19 @@
 {
-  "name": "usproxyscraper",
+  "name": "proxyscraper",
   "version": "1.0.0",
-  "description": "Scrape US proxies for frontend app",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pers2140/ProxyScraper.git"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.0",
-    "uuid": "^8.3.2"
+  "bugs": {
+    "url": "https://github.com/Pers2140/ProxyScraper/issues"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  }
+  "homepage": "https://github.com/Pers2140/ProxyScraper#readme"
 }

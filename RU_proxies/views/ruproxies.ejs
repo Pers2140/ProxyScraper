@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🇷🇺 Proxies</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Set the size of the div element that contains the map */
+    #map {
+      height: 400px;
+      /* The height is 400 pixels */
+      width: 100%;
+      /* The width is the width of the web page */
+    }
+
+    .map-box {
+      width: 100%;
+      height: 300px;
+      margin: auto;
+      border: solid 2px black;
+    }
+
+    .icon {
+      position: absolute;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .stat {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 10px;
+      background: rgb(75, 255, 4);
+      /*rgb(75, 255, 4) */
+
+    }
+
+    .proxy-loc-box {
+      border-radius: 5px;
+      display: none;
+      color: whitesmoke;
+      background: whitesmoke;
+      padding: 10px;
+      z-index: 300;
+      position: fixed;
+      bottom: 100px;
+      width: 80%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      ;
+      min-height: 200px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container-fluid">
+    <br>
+    <h1><span class="border border-danger pl-10">🇷🇺 <%=ruproxies[0].country%> Proxies</span></h1><br>
+    <input style="width:50%;display:inline;" class="d-inline form-control" id="myInput" type="text"
+      placeholder="Search..">
+    <div class="badge badge-secondary" style="display:inline;padding:5px;">Total: <%=Object.keys(ruproxies).length%>
+    </div>
+    <div style="display:inline;padding:5px;"><strong>**Updated Daily**</strong> </div>
+    <br></br>
+
+    <div class="proxy-loc-box">
+      <button type="button" class="close"><span class="glyphicon glyphicon-remove"></span></button>
+      <div id="map"></div>
+    </div>
+    <div class="row proxies">
+      <% Object.keys(ruproxies).forEach((p)=>{ %>
+      <div class="card mt-4 col-sm-12 col-md-6 col-lg-3">
+        <div class="card-body">
+          <div class="panelresponsive float utilities panel-default">
+            <div class="panel-heading panel-body">
+              <address>
+                <br>
+                <h3><strong>
+                    <p><%=ruproxies[p].region%></p>
+                  </strong></h3>
+                <p><strong>City: </strong><%=ruproxies[p].city%>
+                <p><strong>IP: </strong><%=ruproxies[p].ip%>
+                <p><strong>Port: </strong><%=ruproxies[p].port%>
+                <p><strong>Location: </strong><%=ruproxies[p].loc%>
+                <p><strong>Updated: </strong><%=ruproxies[p].ts%>
+                <p><strong>Status: </strong><span class="stat"></span>
+                  
+              </address>
+              <a href="#" onclick="chgloc('<%=ruproxies[p].loc%>')"><img width="100%" height="70%"
+                  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn0.iconfinder.com%2Fdata%2Ficons%2Fflat-online-2%2F64%2Fgps_pin_location_map_mapquest_google_maps-512.png&f=1&nofb=1"
+                  alt=""></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <% }) %>
+    </div>
+  </div>
+  <script>
+    var chgloc = function (loc) {
+      let lat = Number(loc.split(',')[0])
+      let lng = Number(loc.split(',')[1])
+      $('.proxy-loc-box').fadeIn()
+      // The location of Uluru
+      var uluru = { lat: lat, lng: lng };
+      // The map, centered at Uluru
+      var map = new google.maps.Map(
+        document.getElementById('map'), { zoom: 7, center: uluru });
+      // The marker, positioned at Uluru
+      var marker = new google.maps.Marker({ position: uluru, map: map });
+    }
+    $('.close').on('click', () => {
+      $('.proxy-loc-box').fadeOut()
+    })
+    $(document).ready(function () {
+      $("#myInput").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $(".container-fluid .card-body").filter(function () {
+          $(".search").load(".search > *")
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+  </script>
+  <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcNPMa8eX80ZaQbkYWGbdPBXYdCiVQ-6A&callback=initMap">
+    </script>
+
+</body>
+
+</html>
