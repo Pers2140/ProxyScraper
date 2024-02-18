@@ -2,22 +2,20 @@ const express = require('express')
 const https = require('https')
 const path = require('path')
 var fs = require('fs')
-const app = express()
-const port = 3000
+var USProxyrouter = express.Router();
+
 const usproxies = __dirname + '/usproxies.txt'
 const usproxiesjson = __dirname + '/usproxies.json'
 const usproxiesfile = require(__dirname + '/usproxies.json')
-app.set('view engine', 'ejs')
 
 // web server
 
-app.get('/', (req, res) => res.sendFile(usproxies))
-app.get('/api', (req, res) => res.sendFile(usproxiesjson))
-app.set('views', path.join(__dirname, 'views'));
-app.get("/visual", (req, res) => {
+USProxyrouter.get('/', (req, res) => res.sendFile(usproxies))
+USProxyrouter.get('/api', (req, res) => res.sendFile(usproxiesjson))
+USProxyrouter.get("/visual", (req, res) => {
     res.render("usproxies.ejs", { usproxies: usproxiesfile })
 });
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+// app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 // web server
 
 
@@ -107,6 +105,7 @@ var timer = setInterval(() => {
 }, 86400000)//86400000
 
 
+module.exports = USProxyrouter
 
 
 
